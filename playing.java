@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -50,37 +51,58 @@ public class playing {
 	}
 
 	// reading input and switch to change character data according
-	public static int[] movement(char[][] map, String path, int[] character) {
+	public static int[] movement(char[][] map, String path, int[] character,int[] goal) {
 		
-		char line[] = map[character[1]];
+		// !character.equals(goal) give true even when should be false
+		// eclipse bug ? treat && as a || , cannot if(character[0] != goal[0]) && (character[1] != goal[1])
+		// create if in if to pass the encountered issued
+		// deleted additional if, created two new boolean to compare
 		
-        String[] current_line = String.copyValueOf(line).split("");
-	    String[] next_line = String.copyValueOf(map[character[1] +1 ]).split("");
-    	//filling string with # in case of first line , avoiding OOB and declaring the variable
-    	String[] previous_line = String.copyValueOf(line).split("");
-    	int i = 0;
-    	previous_line[i] = previous_line[i].replace(' ', '#');
-	    // check for out of boundaries on map[]
-	    if (character[1] > 0) {
-	    	previous_line = String.copyValueOf(map[character[1] -1 ]).split("");
-	    }	    
-	    
-		if (path == "N" && previous_line[character[0]] != "#") {
-			character[1] = character[1] -1;
-		}
-		if (path == "E" && current_line[character[1] +1] != "#") {
-			character[0] = character[0] + 1;
-		}
-		if (path == "O" && current_line[character[1] -1] != "#") {
-			character[0] = character[0] - 1;
-		}
-		System.out.println(next_line[character[0]]);
-		System.out.println(path == "S");
-		System.out.println("//"+ path + "//");
-		if (path == "S" && next_line[character[0]] != "#") {
-			character[1] = character[1] + 1;
-			System.out.println("S");
-		}
+		boolean x = (character[0] == goal[0]);
+		boolean y = (character[1] == goal[1]);
+		if (x == false || y == false) {
+				char line[] = map[character[1]];
+				
+		        String[] current_line = String.copyValueOf(line).split("");
+			    String[] next_line = String.copyValueOf(map[character[1] +1 ]).split("");
+		    	//filling string with # in case of first line , avoiding OOB and declaring the variable
+		    	String[] previous_line = String.copyValueOf(line).split("");
+		    	int i = 0;
+		    	previous_line[i] = previous_line[i].replace(' ', '#');
+			    // check for out of boundaries on map[]
+			    if (character[1] > 0) {
+			    	previous_line = String.copyValueOf(map[character[1] -1 ]).split("");
+			    }	    
+			    
+			    byte[] ascii = {};
+			    switch (path) {
+			    case "S" :
+			    	ascii = next_line[character[0]].getBytes(StandardCharsets.US_ASCII);
+			    		if (ascii[0] != 35) {
+			    			character[1] = character[1] + 1;
+			    		}
+			    	break;
+		
+			    case "N" :
+			    	ascii = previous_line[character[0]].getBytes(StandardCharsets.US_ASCII);
+			    		if (ascii[0] != 35) {	    			
+			    			character[1] = character[1] -1;
+			    		}
+			    	break;
+			    case "E":
+			    	ascii = current_line[character[0]].getBytes(StandardCharsets.US_ASCII);
+			    		if (ascii[0] != 35) {
+			    			character[0] = character[0] +1;
+			    		}
+			    	break;
+			    case "O":
+			    	ascii = current_line[character[0]].getBytes(StandardCharsets.US_ASCII);
+			    		if (ascii[0] != 35) {
+			    			character[0] = character[0] - 1;
+			    		}
+			    	break;
+			}
+	    } 
 		return character;
 	}
 	
@@ -101,11 +123,9 @@ public class playing {
 			
 			move_needed = read_string(path,i);
 			map[character[1]][character[0]] = 'x'; // putting the path as the character move
-			character = movement(map,move_needed,character);
-			
-			
-					
+			character = movement(map,move_needed,character, result);	
 		}
+		System.out.println(Arrays.toString(character) + " char");
 		map[character[1]][character[0]] = 'p'; // placing a "p" where the character end up
 	    for (int i = 0; i < 19 ; i++) {
 	    	char line[] = map[i];
