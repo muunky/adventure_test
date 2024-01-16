@@ -47,17 +47,22 @@ public class playing {
 	public static void movement(String path, int[] character) {
 		switch (path) {
 		case "N":
-		    	character[0] = character[0] -1;
+		    	character[1] = character[1] -1;
 		    break;
 		case "E":
-				character[1] = character[1] + 1;
+				character[0] = character[0] + 1;
 		case "O":
-				character[1] = character[1] - 1;
+				character[0] = character[0] - 1;
 		    break;
 		case "S":
-				character[0] = character[0] + 1;
+				character[1] = character[1] + 1;
 		    break;
 		}
+	}
+	
+	public static int[] character(int x, int y) {
+		int[] character = {x,y};
+		return character;
 	}
 	
 	public static void main(String[] args) {
