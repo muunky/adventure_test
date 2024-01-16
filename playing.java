@@ -38,6 +38,12 @@ public class playing {
 	    }
 		return map;
 	}
+	
+	public static String read_string(String path, int i) {
+		String[] path_arr = path.split("");
+		return path_arr[i];
+	}
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
