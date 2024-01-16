@@ -44,6 +44,22 @@ public class playing {
 		return path_arr[i];
 	}
 	
+	public static void movement(String path, int[] character) {
+		switch (path) {
+		case "N":
+		    	character[0] = character[0] -1;
+		    break;
+		case "E":
+				character[1] = character[1] + 1;
+		case "O":
+				character[1] = character[1] - 1;
+		    break;
+		case "S":
+				character[0] = character[0] + 1;
+		    break;
+		}
+	}
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
