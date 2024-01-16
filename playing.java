@@ -4,11 +4,15 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 // date/time started : 16/01 . 8h51
 public class playing {
+	
+	
+	// reading and storing map in map[][] variable
 	public static char[][] create_map_array() {
 		int numberOfLines = 0;    
 	    try {
@@ -39,12 +43,14 @@ public class playing {
 		return map;
 	}
 	
+	// spliting string and returning the needed char
 	public static String read_string(String path, int i) {
 		String[] path_arr = path.split("");
 		return path_arr[i];
 	}
 	
-	public static void movement(String path, int[] character) {
+	// reding input and switch to change character data according
+	public static int[] movement(String path, int[] character) {
 		switch (path) {
 		case "N":
 		    	character[1] = character[1] -1;
@@ -58,8 +64,10 @@ public class playing {
 				character[1] = character[1] + 1;
 		    break;
 		}
+		return character;
 	}
 	
+	// creating character
 	public static int[] character(int x, int y) {
 		int[] character = {x,y};
 		return character;
@@ -68,6 +76,24 @@ public class playing {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
+		char[][] map = create_map_array(); // using funct to create map[][]
+		
+		String test_1 = "SSSSEEEEEENN"; // initializing the variable needed
+		int[] character = character(3,0);
+		String move_needed = "";
+		
+		for (int i = 0; i < test_1.length(); i++) {
+			
+			move_needed = read_string(test_1,i);
+			character = movement(move_needed,character);
+			map[character[0]][character[1]] = 'x'; // putting the path as the character move
+			
+					
+		}
+		map[character[0]][character[1]] = 'p'; // placing a "p" where the character end up
+	    for (int i = 0; i < 19 ; i++) {
+	    	System.out.println(Arrays.toString(map[i])); // putting the map in the consol
+	    }
 	}
 
 }
