@@ -74,18 +74,16 @@ public class playing {
 		return character;
 	}
 	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
+	public static void test(String path,int[] result) {
 		char[][] map = create_map_array(); // using funct to create map[][]
 		
-		String test_1 = "SSSSEEEEEENN"; // initializing the variable needed
+		// initializing the variable needed
 		int[] character = character(3,0);
 		String move_needed = "";
 		
-		for (int i = 0; i < test_1.length(); i++) {
+		for (int i = 0; i < path.length(); i++) {
 			
-			move_needed = read_string(test_1,i);
+			move_needed = read_string(path,i);
 			character = movement(move_needed,character);
 			map[character[0]][character[1]] = 'x'; // putting the path as the character move
 			
@@ -93,10 +91,18 @@ public class playing {
 		}
 		map[character[0]][character[1]] = 'p'; // placing a "p" where the character end up
 	    for (int i = 0; i < 19 ; i++) {
-	    	System.out.println(Arrays.toString(map[i])); // putting the map in the consol
+	    	System.out.println(Arrays.toString(map[i])); // putting the map in the console
 	    }
 	    System.out.println("position attendue : 9 / 2");
 	    System.out.println("position obtenue : " + character[0] + " / " + character[1]);
+	}
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		// test 1
+		int[] goal = {9,2};
+		test("SSSSEEEEEENN",goal);
 	}
 
 }
