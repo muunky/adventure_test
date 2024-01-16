@@ -45,7 +45,7 @@ public class playing {
 	
 	// spliting string and returning the needed char
 	public static String read_string(String path, int i) {
-		String[] path_arr = path.split("");
+		String[] path_arr = path.split("");;
 		return path_arr[i];
 	}
 	
@@ -57,6 +57,7 @@ public class playing {
 		    break;
 		case "E":
 				character[0] = character[0] + 1;
+		    	break;
 		case "O":
 				character[0] = character[0] - 1;
 		    break;
@@ -94,6 +95,8 @@ public class playing {
 	    for (int i = 0; i < 19 ; i++) {
 	    	System.out.println(Arrays.toString(map[i])); // putting the map in the consol
 	    }
+	    System.out.println("position attendue : 9 / 2");
+	    System.out.println("position obtenue : " + character[0] + " / " + character[1]);
 	}
 
 }
